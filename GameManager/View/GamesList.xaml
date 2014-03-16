@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="GameManager.View.GamesList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GameManager"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance local:GamesListViewModel}">
+    <Grid>
+        <DockPanel>
+            <DockPanel DockPanel.Dock="Top">
+                <Button Content="X" Width="20" Height="20" DockPanel.Dock="Right" Click="Button_Click" />
+                <TextBox Name="FilterTextBox" Text="{Binding Path=NameFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                            />
+            </DockPanel>
+
+            <ListView Height="Auto" HorizontalAlignment="Stretch" Name="listView1" VerticalAlignment="Stretch" Width="Auto" ItemsSource="{Binding Path=GamesCollection.View}" KeyDown="listView1_KeyDown" MouseDoubleClick="listView1_MouseDoubleClick"   DockPanel.Dock="Left" Tag="{Binding ElementName=listView1, Path=DataContext}">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="IsSelected" Value="{Binding Mode=TwoWay, Path=IsSelected}"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ContextMenu>
+                    <ContextMenu DataContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Self}}" ItemsSource="{Binding Path=CommandList}" DisplayMemberPath="DisplayName">
+                    <ContextMenu.ItemContainerStyle>
+                            <Style TargetType="MenuItem">
+                                <Setter Property="Command" Value="{Binding Path=Command}"/>
+                        </Style>
+                    </ContextMenu.ItemContainerStyle>
+                    </ContextMenu>
+                </ListView.ContextMenu>
+                <ListView.View>
+                    <GridView AllowsColumnReorder="False">
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Header="Name" />
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=CurrentGenre.Name}" Header="Genre" />
+                        <GridViewColumn Header="Website" DisplayMemberBinding="{Binding Path=CurrentSite.Name}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </DockPanel>
+    </Grid>
+</UserControl>

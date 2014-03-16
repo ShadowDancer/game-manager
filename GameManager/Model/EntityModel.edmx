@@ -1,0 +1,454 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="DBModelStoreContainer">
+          <EntitySet Name="Games" EntityType="DBModel.Store.Games" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Genres" EntityType="DBModel.Store.Genres" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Keys" EntityType="DBModel.Store.Keys" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Locations" EntityType="DBModel.Store.Locations" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Sites" EntityType="DBModel.Store.Sites" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Statuses" EntityType="DBModel.Store.Statuses" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Games_Genres" Association="DBModel.Store.FK_Games_Genres">
+            <End Role="Genres" EntitySet="Genres" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Keys" Association="DBModel.Store.FK_Games_Keys">
+            <End Role="Keys" EntitySet="Keys" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Locations" Association="DBModel.Store.FK_Games_Locations">
+            <End Role="Locations" EntitySet="Locations" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Sites" Association="DBModel.Store.FK_Games_Sites">
+            <End Role="Sites" EntitySet="Sites" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Statuses" Association="DBModel.Store.FK_Games_Statuses">
+            <End Role="Statuses" EntitySet="Statuses" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sites_Locations" Association="DBModel.Store.FK_Sites_Locations">
+            <End Role="Locations" EntitySet="Locations" />
+            <End Role="Sites" EntitySet="Sites" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Games">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Site" Type="int" />
+          <Property Name="Rating" Type="int" Nullable="false" />
+          <Property Name="Location" Type="int" />
+          <Property Name="Key" Type="int" />
+          <Property Name="Genre" Type="int" />
+          <Property Name="Status" Type="int" />
+        </EntityType>
+        <EntityType Name="Genres">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Keys">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Key" Type="nchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Locations">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Path" Type="nchar" Nullable="false" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Sites">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="URL" Type="int" />
+          <Property Name="User" Type="nvarchar" MaxLength="100" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Statuses">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Games_Genres">
+          <End Role="Genres" Type="DBModel.Store.Genres" Multiplicity="0..1" />
+          <End Role="Games" Type="DBModel.Store.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genres">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Genre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Keys">
+          <End Role="Keys" Type="DBModel.Store.Keys" Multiplicity="0..1" />
+          <End Role="Games" Type="DBModel.Store.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Keys">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Key" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Locations">
+          <End Role="Locations" Type="DBModel.Store.Locations" Multiplicity="0..1" />
+          <End Role="Games" Type="DBModel.Store.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locations">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Location" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Sites">
+          <End Role="Sites" Type="DBModel.Store.Sites" Multiplicity="0..1" />
+          <End Role="Games" Type="DBModel.Store.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sites">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Site" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Statuses">
+          <End Role="Statuses" Type="DBModel.Store.Statuses" Multiplicity="0..1" />
+          <End Role="Games" Type="DBModel.Store.Games" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Statuses">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sites_Locations">
+          <End Role="Locations" Type="DBModel.Store.Locations" Multiplicity="0..1" />
+          <End Role="Sites" Type="DBModel.Store.Sites" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locations">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Sites">
+              <PropertyRef Name="URL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Games" EntityType="DBModel.Game" />
+          <EntitySet Name="Genres" EntityType="DBModel.Genre" />
+          <EntitySet Name="Keys" EntityType="DBModel.Key" />
+          <EntitySet Name="Locations" EntityType="DBModel.Location" />
+          <EntitySet Name="Sites" EntityType="DBModel.Site" />
+          <EntitySet Name="Statuses" EntityType="DBModel.Status" />
+          <AssociationSet Name="FK_Games_Genres" Association="DBModel.FK_Games_Genres">
+            <End Role="Genres" EntitySet="Genres" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Keys" Association="DBModel.FK_Games_Keys">
+            <End Role="Keys" EntitySet="Keys" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Sites" Association="DBModel.FK_Games_Sites">
+            <End Role="Sites" EntitySet="Sites" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Statuses" Association="DBModel.FK_Games_Statuses">
+            <End Role="Statuses" EntitySet="Statuses" />
+            <End Role="Games" EntitySet="Games" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sites_Locations" Association="DBModel.FK_Sites_Locations">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="Site" EntitySet="Sites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Games_Locations" Association="DBModel.FK_Games_Locations">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="Game" EntitySet="Games" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Game">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Site" Type="Int32" />
+          <Property Name="Rating" Type="Int32" DefaultValue="0" Nullable="false" />
+          <Property Name="Location" Type="Int32" />
+          <Property Name="Key" Type="Int32" />
+          <Property Name="Genre" Type="Int32" />
+          <Property Name="Status" Type="Int32" />
+          <NavigationProperty Name="Genre1" Relationship="DBModel.FK_Games_Genres" FromRole="Games" ToRole="Genres" />
+          <NavigationProperty Name="Key1" Relationship="DBModel.FK_Games_Keys" FromRole="Games" ToRole="Keys" />
+          <NavigationProperty Name="Site1" Relationship="DBModel.FK_Games_Sites" FromRole="Games" ToRole="Sites" />
+          <NavigationProperty Name="Status1" Relationship="DBModel.FK_Games_Statuses" FromRole="Games" ToRole="Statuses" />
+          <NavigationProperty Name="Locations_1" Relationship="DBModel.FK_Games_Locations" FromRole="Game" ToRole="Location" />
+        </EntityType>
+        <EntityType Name="Genre">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Games" Relationship="DBModel.FK_Games_Genres" FromRole="Genres" ToRole="Games" />
+        </EntityType>
+        <EntityType Name="Key">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Key1" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="true" />
+          <NavigationProperty Name="Games" Relationship="DBModel.FK_Games_Keys" FromRole="Keys" ToRole="Games" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Path" Type="String" Nullable="false" MaxLength="500" Unicode="true" FixedLength="true" />
+          <NavigationProperty Name="Sites" Relationship="DBModel.FK_Sites_Locations" FromRole="Location" ToRole="Site" />
+          <NavigationProperty Name="Games_1" Relationship="DBModel.FK_Games_Locations" FromRole="Location" ToRole="Game" />
+        </EntityType>
+        <EntityType Name="Site">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="URL" Type="Int32" />
+          <Property Name="User" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Password" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Games" Relationship="DBModel.FK_Games_Sites" FromRole="Sites" ToRole="Games" />
+          <NavigationProperty Name="Locations" Relationship="DBModel.FK_Sites_Locations" FromRole="Site" ToRole="Location" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Games" Relationship="DBModel.FK_Games_Statuses" FromRole="Statuses" ToRole="Games" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_Games_Genres">
+          <End Role="Genres" Type="DBModel.Genre" Multiplicity="0..1" />
+          <End Role="Games" Type="DBModel.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genres">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Genre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Keys">
+          <End Role="Keys" Type="DBModel.Key" Multiplicity="0..1" />
+          <End Role="Games" Type="DBModel.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Keys">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Key" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Sites">
+          <End Role="Sites" Type="DBModel.Site" Multiplicity="0..1" />
+          <End Role="Games" Type="DBModel.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sites">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Site" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Statuses">
+          <End Role="Statuses" Type="DBModel.Status" Multiplicity="0..1" />
+          <End Role="Games" Type="DBModel.Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Statuses">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Games">
+              <PropertyRef Name="Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sites_Locations">
+          <End Type="DBModel.Location" Role="Location" Multiplicity="0..1" />
+          <End Type="DBModel.Site" Role="Site" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Site">
+              <PropertyRef Name="URL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Games_Locations">
+          <End Type="DBModel.Location" Role="Location" Multiplicity="0..1" />
+          <End Type="DBModel.Game" Role="Game" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Game">
+              <PropertyRef Name="Location" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBModelStoreContainer" CdmEntityContainer="DBEntities">
+          <EntitySetMapping Name="Games">
+            <EntityTypeMapping TypeName="DBModel.Game">
+              <MappingFragment StoreEntitySet="Games">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Site" ColumnName="Site" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Key" ColumnName="Key" />
+                <ScalarProperty Name="Genre" ColumnName="Genre" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Genres">
+            <EntityTypeMapping TypeName="DBModel.Genre">
+              <MappingFragment StoreEntitySet="Genres">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Keys">
+            <EntityTypeMapping TypeName="DBModel.Key">
+              <MappingFragment StoreEntitySet="Keys">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Key1" ColumnName="Key" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Locations">
+            <EntityTypeMapping TypeName="DBModel.Location">
+              <MappingFragment StoreEntitySet="Locations">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sites">
+            <EntityTypeMapping TypeName="DBModel.Site">
+              <MappingFragment StoreEntitySet="Sites">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="User" ColumnName="User" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Statuses">
+            <EntityTypeMapping TypeName="DBModel.Status">
+              <MappingFragment StoreEntitySet="Statuses">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Model1">
+        <EntityTypeShape EntityType="DBModel.Game" Width="1.5" PointX="3" PointY="1" Height="3.5186979166666656" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Genre" Width="1.5" PointX="0.75" PointY="2" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Key" Width="1.5" PointX="0.75" PointY="5.125" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Location" Width="1.5" PointX="5.25" PointY="2" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Site" Width="1.5" PointX="6.625" PointY="7.375" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Status" Width="1.5" PointX="3.375" PointY="7.25" Height="1.5956835937499996" IsExpanded="true" />
+        <AssociationConnector Association="DBModel.FK_Games_Genres" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="2.797841796875" />
+          <ConnectorPoint PointX="3" PointY="2.797841796875" />
+        </AssociationConnector>
+        <AssociationConnector Association="DBModel.FK_Games_Keys" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="5.922841796875" />
+          <ConnectorPoint PointX="3.57812625" PointY="5.922841796875" />
+          <ConnectorPoint PointX="3.57812625" PointY="4.7109993489583326" />
+        </AssociationConnector>
+        <AssociationConnector Association="DBModel.FK_Games_Sites" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.46875" PointY="7.375" />
+          <ConnectorPoint PointX="7.46875" PointY="1.46875" />
+          <ConnectorPoint PointX="4.5" PointY="1.46875" />
+        </AssociationConnector>
+        <AssociationConnector Association="DBModel.FK_Games_Statuses" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.101563125" PointY="7.25" />
+          <ConnectorPoint PointX="4.101563125" PointY="4.5186979166666656" />
+        </AssociationConnector>
+        <AssociationConnector Association="DBModel.FK_Sites_Locations" >
+          <ConnectorPoint PointX="5.9374994999999995" PointY="3.9802864583333331" />
+          <ConnectorPoint PointX="5.9374994999999995" PointY="8.5574446614583337" />
+          <ConnectorPoint PointX="6.625" PointY="8.5574446614583337" />
+        </AssociationConnector>
+        <AssociationConnector Association="DBModel.FK_Games_Locations" >
+          <ConnectorPoint PointX="5.25" PointY="2.4325716145833334" />
+          <ConnectorPoint PointX="4.5" PointY="2.4325716145833334" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
